@@ -1,0 +1,6 @@
+.settings/
+.project
+.classpath
+target/
+/dependency-reduced-pom.xml
+**/microprofile-config.properties
