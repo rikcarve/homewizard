@@ -2,7 +2,12 @@ var myapp = new Vue({
   el: '#myapp',
   data: {
 	  sensors: null,
-	  gridColumns: ['id', 'name', "te", "hu"]
+	  gridColumns: ['id', 'name', "te", "hu"],
+      headers: [
+    	  { text: 'Name', value: 'name' },
+    	  { text: 'Temperature', value: 'te' },
+    	  { text: 'Humidity', value: 'hu' }
+      ]
   },
   created: function () {
 	  this.fetch();
