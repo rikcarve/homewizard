@@ -19,6 +19,7 @@ import ch.carve.homewizard.model.TemperaturSensor;
 
 @RequestScoped
 @Path("temperatur")
+@Produces("application/json")
 public class TemperaturResource {
 
     private static final Logger logger = LoggerFactory.getLogger(TemperaturResource.class);
@@ -38,7 +39,6 @@ public class TemperaturResource {
 
     @GET
     @Path("sensor/{id}")
-    @Produces("application/json")
     public TemperaturSensor getTemp(@PathParam("id") int id) {
         logger.info("Get data for sensor {}", id);
         return tempService.getSensor(id);

@@ -2,7 +2,7 @@ var myapp = new Vue({
   el: '#myapp',
   data: {
 	  sensors: null,
-	  gridColumns: ['id', 'name', "te", "hu"],
+	  gridColumns: ['id', 'name', "te", "hu", "te+"],
       headers: [
     	  { text: 'Name', value: 'name' },
     	  { text: 'Temperature', value: 'te' },

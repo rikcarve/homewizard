@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta charset="ISO-8859-1">
-	<title>Homewizard</title>
+	<title>Secure Homewizard UI</title>
 	<link href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons' rel="stylesheet" type="text/css">
 	<link href="https://unpkg.com/vuetify/dist/vuetify.min.css" rel="stylesheet" type="text/css"></link>
 	<!-- <link rel="stylesheet" href="css/main.css">  -->
@@ -14,6 +14,7 @@
 </head>
 <body>
 	<div id="myapp">
+
 	  <v-data-table
         :headers="headers"
         :items="sensors"
@@ -22,10 +23,17 @@
         class="elevation-1"
       >
       <template slot="items" slot-scope="props">
-        <td>{{ props.item.name }}</td>
-        <td class="text-xs-right">{{ props.item.te }}</td>
-        <td class="text-xs-right">{{ props.item.hu }}</td>
+        <tr @click="props.expanded = !props.expanded">
+          <td>{{ props.item.name }}</td>
+          <td class="text-xs-right">{{ props.item.te }}</td>
+          <td class="text-xs-right">{{ props.item.hu }}</td>
+        </tr>
       </template>
+      <template slot="expand" slot-scope="props">
+      <v-card flat>
+        <v-card-text>Outside: {{ props.item['te+'] }}</v-card-text>
+      </v-card>
+    </template>
     </v-data-table>
 	</div>
     <script src="https://unpkg.com/vue/dist/vue.min.js"></script>
