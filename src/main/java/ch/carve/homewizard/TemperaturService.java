@@ -47,12 +47,12 @@ public class TemperaturService {
     @Retry(maxRetries = 1)
     public CompletionStage<TemperaturSensor> getSensor(int id) {
         Logger.getLogger("here").info(() -> "getSensor");
-        CompletionStage<TemperaturResponse> response = client.target(homewizardUrl.get())
+        return client.target(homewizardUrl.get())
                 .path("/telist")
                 .request()
                 .rx()
-                .get(TemperaturResponse.class);
-        response.exceptionally(ex -> {throw new RuntimeException("Bla");});
-        return response.thenApply(t -> t.getSensor().get(id));
+                .get(TemperaturResponse.class)
+                .exceptionally(ex -> {throw new RuntimeException("Bla");})
+                .thenApply(t -> t.getSensor().get(id));
     }
 }
