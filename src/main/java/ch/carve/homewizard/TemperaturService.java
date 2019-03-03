@@ -1,14 +1,19 @@
 package ch.carve.homewizard;
 
+import java.util.concurrent.CompletionStage;
 import java.util.concurrent.TimeUnit;
+import java.util.logging.Logger;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import javax.inject.Provider;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 
 import org.eclipse.microprofile.config.inject.ConfigProperty;
+import org.eclipse.microprofile.faulttolerance.Retry;
+import org.eclipse.microprofile.opentracing.Traced;
 
 import ch.carve.homewizard.model.TemperaturResponse;
 import ch.carve.homewizard.model.TemperaturSensor;
@@ -27,7 +32,7 @@ public class TemperaturService {
 
     @Inject
     @ConfigProperty(name = "homewizard.url")
-    private String homewizardUrl;
+    private Provider<String> homewizardUrl;
 
     @PostConstruct
     public void init() {
@@ -38,11 +43,16 @@ public class TemperaturService {
                 .build();
     }
     
-    public TemperaturSensor getSensor(int id) {
-        TemperaturResponse response = client.target(homewizardUrl)
+    @Traced
+    @Retry(maxRetries = 1)
+    public CompletionStage<TemperaturSensor> getSensor(int id) {
+        Logger.getLogger("here").info(() -> "getSensor");
+        CompletionStage<TemperaturResponse> response = client.target(homewizardUrl.get())
                 .path("/telist")
                 .request()
+                .rx()
                 .get(TemperaturResponse.class);
-            return response.getSensor().get(id);
+        response.exceptionally(ex -> {throw new RuntimeException("Bla");});
+        return response.thenApply(t -> t.getSensor().get(id));
     }
 }
