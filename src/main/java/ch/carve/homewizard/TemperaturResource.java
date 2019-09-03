@@ -14,6 +14,8 @@ import javax.ws.rs.Produces;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import ch.carve.homewizard.model.Special;
+import ch.carve.homewizard.model.SpecialMapper;
 import ch.carve.homewizard.model.TemperaturSensor;
 
 @RequestScoped
@@ -22,10 +24,13 @@ import ch.carve.homewizard.model.TemperaturSensor;
 public class TemperaturResource {
 
     private static final Logger logger = LoggerFactory.getLogger(TemperaturResource.class);
-    
+
     @Inject
     private TemperaturService tempService;
-    
+
+    @Inject
+    private SpecialMapper mapper;
+
     @GET
     @Path("/list")
     public List<TemperaturSensor> getTempList() {
@@ -43,4 +48,10 @@ public class TemperaturResource {
         return tempService.getSensor(id);
     }
 
+    @GET
+    @Path("/map")
+    public Special getSpecial() throws Exception {
+        TemperaturSensor sensor = tempService.getSensor(1).toCompletableFuture().get();
+        return mapper.map(sensor);
+    }
 }
