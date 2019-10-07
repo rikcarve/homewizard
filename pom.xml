@@ -14,6 +14,7 @@
         <my.docker.certs>C:/Users/arikd/.docker/machine/certs</my.docker.certs>
         <failOnMissingWebXml>false</failOnMissingWebXml>
         <org.mapstruct.version>1.3.0.Final</org.mapstruct.version>
+        <m2e.apt.activation>jdt_apt</m2e.apt.activation>
     </properties>
     <dependencies>
         <dependency>
@@ -40,18 +41,23 @@
             <version>1.0</version>
             <scope>provided</scope>
         </dependency>
-<!--
-        <dependency>
-            <groupId>org.microprofile-ext.config-ext</groupId>
-            <artifactId>configsource-consul</artifactId>
-            <version>1.0.6</version>
-        </dependency>
--->
         <dependency>
             <groupId>ch.carve</groupId>
             <artifactId>mp-config-db</artifactId>
             <version>0.4</version>
         </dependency>
+        <dependency>
+            <groupId>ch.carve</groupId>
+            <artifactId>mp-config-consul</artifactId>
+            <version>0.4-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.togglz</groupId>
+            <artifactId>togglz-cdi</artifactId>
+            <version>2.6.1.Final</version>
+        </dependency>
+        
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
@@ -65,7 +71,7 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.18.6</version>
+            <version>1.18.8</version>
             <scope>provided</scope>
         </dependency>
 
