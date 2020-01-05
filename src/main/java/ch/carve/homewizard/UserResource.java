@@ -29,6 +29,12 @@ public class UserResource {
     private Provider<String> test;
 
     @GET
+    @Path("config")
+    public String getConfig() {
+        return test.get();
+    }
+
+    @GET
     @Path("/{user}")
     @Produces(value = "application/json")
     public UserEntity getUser(@PathParam("user") String userName) {
