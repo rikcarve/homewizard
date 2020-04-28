@@ -7,7 +7,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class TemperaturSensor {
+public class TemperatureSensor {
     private float id;
     private String name;
     private String code;
@@ -15,7 +15,7 @@ public class TemperaturSensor {
     private String lowBattery;
     private float version;
     @JsonbProperty("te")
-    private float temperatur;
+    private float temperature;
     @JsonbProperty("hu")
     private float humidity;
     @JsonbProperty("te+")

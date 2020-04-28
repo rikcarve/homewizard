@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+{#include header.html}{/include}
+<body>
+    {#include navigation.html}{/include}
+	<table class="table table-striped table-bordered">
+        <thead>
+            <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Temperature</th>
+                <th scope="col">Humidity</th>
+            </tr>
+        </thead>
+        <tbody>
+		{#for item in temperatures}
+		<tr>
+			<td>{item.name}</td>
+			<td>{item.temperature}</td>
+			<td>{item.humidity}</td>
+		</tr>
+		{/for}
+		</tbody>
+	</table>
+</body>
+</html>

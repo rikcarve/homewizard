@@ -3,4 +3,9 @@
 .classpath
 target/
 /dependency-reduced-pom.xml
+
 **/microprofile-config.properties
+**/application.properties
+
+.idea
+*.iml

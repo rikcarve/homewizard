@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+{#include header.html}{/include}
+<html>
+<body>
+	{#include navigation.html}{/include}
+	<table class="table table-striped table-bordered">
+		<thead>
+			<tr>
+				<th scope="col">Name</th>
+				<th scope="col">Status</th>
+			</tr>
+		</thead>
+		<tbody>
+			{#for item in light}
+			<tr>
+				<td>{item.name}</td>
+				<td class="fit">
+					<form action="/light/{item.id}/toggle/{item.status}" method="POST" name="toggle-{item.id}" up-target=".container">
+						<input class="btn btn-dark btn-sm" value="{item.status}" type="submit">
+					</form>
+				</td>
+			</tr>
+			{/for}
+		</tbody>
+	</table>
+</body>
+</html>
