@@ -6,6 +6,7 @@ import io.quarkus.qute.TemplateInstance;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.annotation.security.RolesAllowed;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.ws.rs.GET;
@@ -19,7 +20,7 @@ import java.util.List;
 
 @RequestScoped
 @Path("/temperature")
-@Produces("application/json")
+@Produces(MediaType.TEXT_HTML)
 public class TemperatureResource {
 
     private static final Logger logger = LoggerFactory.getLogger(TemperatureResource.class);
@@ -31,7 +32,7 @@ public class TemperatureResource {
     Template temperatures;
 
     @GET
-    @Produces(MediaType.TEXT_HTML)
+    @RolesAllowed("user")
     public TemplateInstance get() {
         List<TemperatureSensor> data = tempService.getList();
         return temperatures
@@ -40,6 +41,7 @@ public class TemperatureResource {
     }
 
     @GET
+    @RolesAllowed("user")
     @Path("/sensor/{id}")
     public TemperatureSensor getTemp(@PathParam("id") int id) {
         logger.info("Get data for sensor {}", id);

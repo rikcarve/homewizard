@@ -4,7 +4,9 @@ import ch.carve.homewizard.model.Switch;
 import io.quarkus.qute.Template;
 import io.quarkus.qute.TemplateInstance;
 import lombok.extern.slf4j.Slf4j;
+import org.eclipse.microprofile.config.ConfigProvider;
 
+import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -14,7 +16,7 @@ import java.util.ArrayList;
 
 @Slf4j
 @Path("/light")
-@Produces("application/json")
+@Produces(MediaType.TEXT_HTML)
 public class LightResource {
 
     @Inject
@@ -24,7 +26,7 @@ public class LightResource {
     LightService lightService;
 
     @GET
-    @Produces(MediaType.TEXT_HTML)
+    @RolesAllowed("user")
     public TemplateInstance get() {
         ArrayList<Switch> data = lightService.getList();
         return light.data("light", data)
@@ -32,7 +34,7 @@ public class LightResource {
     }
 
     @POST
-    @Produces(MediaType.TEXT_HTML)
+    @RolesAllowed("user")
     @Path("/{id}/toggle/{status}")
     public Response toggle(@PathParam("id") int id, @PathParam("status") String status) {
         log.info("toggle {}, old status {}", id, status);
